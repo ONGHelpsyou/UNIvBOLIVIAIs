@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Cuotas - Universidad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #1a2a6c;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #b21f1f;
+        }
+
+        .student-info {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .error {
+            color: #c62828;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #b21f1f;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+
+        .career-info {
+            margin: 10px 0;
+            font-style: italic;
+            color: #1a2a6c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>UNIVERSIDAD NACIONAL DE INGENIERÍA</h1>
+            <p>Sistema de Verificación de Cuotas Estudiantiles</p>
+        </div>
+
+        <div class="content">
+            <div class="input-group">
+                <label for="accessCode">Ingresa tu código de acceso:</label>
+                <input type="password" id="accessCode" placeholder="Introduce tu clave aquí">
+                <p class="error" id="errorMessage">Clave incorrecta. Intenta nuevamente.</p>
+            </div>
+
+            <button id="verifyBtn">Verificar Acceso</button>
+
+            <div class="info-container" id="studentInfo">
+                <div class="student-info">
+                    <h2>Estimado estudiante:</h2>
+                    <p><span class="highlight">Mariño Suarez Ch.</span></p>
+                    <p class="career-info">Licenciatura en Ingeniería de Sistemas</p>
+                    <p>Con C.I. <span class="highlight">7648292</span> y código de estudiante <span
+                            class="highlight">20000405</span></p>
+                </div>
+
+                <div class="payment-info">
+                    <p>Tu última cuota es de <span class="highlight">750 Bs.</span></p>
+                    <p>Tienes hasta el <span class="highlight">14 de noviembre de 2025</span> para realizar el pago.</p>
+                </div>
+
+                <div class="alert">
+                    <p>Posteriormente se retirará la credencial de tu acceso y la plataforma.</p>
+                    <p>Este es tu <span class="highlight">tercer retraso</span>.</p>
+                    <p>Atentamente, la Administración de la Universidad.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Sistema seguro - Universidad Nacional de Ingeniería © 2025</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accessCodeInput = document.getElementById('accessCode');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const studentInfo = document.getElementById('studentInfo');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Clave de acceso válida
+            const validAccessCode = "200500MS"; // Puedes cambiar esta clave
+
+            verifyBtn.addEventListener('click', function () {
+                const enteredCode = accessCodeInput.value.trim();
+
+                if (enteredCode === validAccessCode) {
+                    // Código correcto - mostrar información
+                    studentInfo.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    accessCodeInput.value = ''; // Limpiar campo
+                } else {
+                    // Código incorrecto - mostrar error
+                    errorMessage.style.display = 'block';
+                    studentInfo.style.display = 'none';
+                    accessCodeInput.value = ''; // Limpiar campo
+                    accessCodeInput.focus(); // Volver a enfocar el campo
+                }
+            });
+
+            // Permitir verificación con la tecla Enter
+            accessCodeInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    verifyBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
